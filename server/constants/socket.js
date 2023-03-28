@@ -1,0 +1,4 @@
+const CONNECT = 'CONNECT'
+const JOIN = 'JOIN'
+const SEND = 'SEND'
+const DISCONNECT = 'DISCONNECT'
