@@ -1,13 +1,16 @@
 //import dependencies
-const http = require('http')
-const express = require('express')
-const cors = require('cors')
-const mongoose = require('mongoose')
-const dotenv = require('dotenv')
-const socketio = require('socket.io')
+import http from "http";
+import express from 'express'
+import cors from 'cors'
+import mongoose from "mongoose";
+import dotenv from 'dotenv'
+import {Server} from 'socket.io'
 
 //import socket.io constants
-const {CONNECT, SEND, JOIN, DISCONNECT} = require('./constants/socket')
+import {CONNECT, JOIN, SEND, DISCONNECT} from "./constants/socket.js";
+
+//import routes
+import userRoutes from './routes/users.js'
 
 //load env variables
 dotenv.config()
@@ -15,11 +18,15 @@ dotenv.config()
 //create app and server
 const app = express()
 const server = http.createServer(app)
-const io = socketio(server)
+const io = new Server(server)
 
 //middleware
 app.use(cors())
 app.use(express.json())
+
+//routes
+app.use('/api/users', userRoutes)
+    //TODO: add groups route
 
 //connection to db
 mongoose.connect(process.env.MONGODB_URI,
@@ -27,10 +34,6 @@ mongoose.connect(process.env.MONGODB_URI,
 )
     .then(()=>console.log(('Database Connection Success!')))
     .catch((e)=>console.log(e))
-
-//routes
-app.use('/api/users', require('./routes/users'))
-    //TODO: add groupes route
 
 //socket.io
 io.on(CONNECT, (socket) => {

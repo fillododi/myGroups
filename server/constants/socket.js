@@ -1,4 +1,4 @@
-const CONNECT = 'CONNECT'
-const JOIN = 'JOIN'
-const SEND = 'SEND'
-const DISCONNECT = 'DISCONNECT'
+export const CONNECT = 'CONNECT'
+export const JOIN = 'JOIN'
+export const SEND = 'SEND'
+export const DISCONNECT = 'DISCONNECT'
