@@ -16,8 +16,6 @@ export const createUser = async (req, res) => {
     const user = new User({username: req.body.username,
         password: req.body.password,
         email: req.body.email,
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
         friends: []
     })
     try{
